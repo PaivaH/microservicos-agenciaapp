@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  mariadb:
+    image: mariadb:10
+
+    container_name: poslive-mariadb
+    
+    ports:
+      - 3306:3306
+
+    restart: on-failure
+
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_PASSWORD: 123
+
+    volumes:
+      - poslive:/var/lib/mysql
+
+volumes:
+  poslive:
