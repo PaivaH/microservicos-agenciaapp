@@ -11,13 +11,13 @@ CREATE TABLE profissional (
  nome varchar(100) NOT NULL,
  profissao varchar(19) NOT NULL,
  especialidades varchar(100) DEFAULT NULL,
- conselhoProfissional varchar(15) NOT NULL,
+ conselho_profissional varchar(15) NOT NULL,
 PRIMARY KEY (id)
 );
 
 ALTER TABLE profissional
-ADD id_clinica BIGINT(20) NOT null;
+ADD clinica_id BIGINT(20) NOT null;
 
 ALTER TABLE profissional
 ADD CONSTRAINT fk_clinica 
-FOREIGN KEY(id_clinica) REFERENCES clinica(id);
+FOREIGN KEY(clinica_id) REFERENCES clinica(id);

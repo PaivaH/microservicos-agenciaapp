@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Clinica {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +36,6 @@ public class Clinica {
     @NotBlank
     private String responsavel;
 
-    @OneToMany
+    @OneToMany(mappedBy = "clinica")
     private List<Profissional> profissionais;
 }

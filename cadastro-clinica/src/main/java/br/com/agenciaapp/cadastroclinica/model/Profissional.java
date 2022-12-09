@@ -1,5 +1,6 @@
 package br.com.agenciaapp.cadastroclinica.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Profissional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank
     private String nome;
@@ -35,10 +36,11 @@ public class Profissional {
     private String especialidades;
 
     @NotBlank
+    @Column(name = "")
     private String conselhoProfissional;
 
-    @ManyToOne
     @NotNull
+    @ManyToOne()
     private Clinica clinica;
 
 }
