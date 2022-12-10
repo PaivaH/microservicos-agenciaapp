@@ -1,4 +1,4 @@
-package br.com.agenciaapp.cadastroclinica;
+package br.com.agenciaapp.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class CadastroClinicaApplication {
+public class GatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CadastroClinicaApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 
 }
