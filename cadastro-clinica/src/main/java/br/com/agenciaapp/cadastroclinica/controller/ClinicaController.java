@@ -1,6 +1,7 @@
 package br.com.agenciaapp.cadastroclinica.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.agenciaapp.cadastroclinica.dto.ClinicaDto;
+import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
 import br.com.agenciaapp.cadastroclinica.service.ClinicaService;
 
 @RestController()
@@ -39,6 +41,11 @@ public class ClinicaController {
         ClinicaDto clinicaDto = clinicaService.obterById(id);
 
         return ResponseEntity.ok(clinicaDto);
+    }
+
+    @GetMapping("/{id}/profissionais")
+    public List<ProfissionaisDto> profissionaisClinica(@PathVariable @NotNull Long id) {
+        return clinicaService.obterProfissionais(id);
     }
 
     @PostMapping
