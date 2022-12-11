@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.agenciaapp.cadastroclinica.dto.ProfissionalDto;
 import br.com.agenciaapp.cadastroclinica.model.Profissional;
-import br.com.agenciaapp.cadastroclinica.model.repository.ProfissionalRepository;
+import br.com.agenciaapp.cadastroclinica.repository.ProfissionalRepository;
 
 @Service
 public class ProfissionalService {

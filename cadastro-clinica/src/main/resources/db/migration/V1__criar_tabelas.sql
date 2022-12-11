@@ -21,3 +21,14 @@ ADD clinica_id BIGINT(20) NOT null;
 ALTER TABLE profissional
 ADD CONSTRAINT fk_clinica 
 FOREIGN KEY(clinica_id) REFERENCES clinica(id);
+
+CREATE TABLE agenda (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    profissional_id bigint(20) NOT NULL,
+    dia_hora datetime NOT NULl,
+    disponivel boolean default 1,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_profissional 
+    FOREIGN KEY (profissional_id)  
+    REFERENCES profissional(id)  
+);

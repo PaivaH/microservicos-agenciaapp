@@ -1,4 +1,4 @@
-package br.com.agenciaapp.cadastroclinica.model.repository;
+package br.com.agenciaapp.cadastroclinica.repository;
 
 import java.util.List;
 

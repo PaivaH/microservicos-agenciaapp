@@ -16,12 +16,12 @@ import br.com.agenciaapp.cadastroclinica.dto.ClinicaDto;
 import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
 import br.com.agenciaapp.cadastroclinica.model.Clinica;
 import br.com.agenciaapp.cadastroclinica.model.Profissional;
-import br.com.agenciaapp.cadastroclinica.model.repository.ClinicaRepository;
-import br.com.agenciaapp.cadastroclinica.model.repository.ProfissionalRepository;
+import br.com.agenciaapp.cadastroclinica.repository.ClinicaRepository;
+import br.com.agenciaapp.cadastroclinica.repository.ProfissionalRepository;
 
 @Service
 public class ClinicaService {
-    
+
     @Autowired
     private ClinicaRepository clinicaRepository;
 
@@ -31,13 +31,13 @@ public class ClinicaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Page<ClinicaDto> obter (Pageable pageable) {
+    public Page<ClinicaDto> obter(Pageable pageable) {
         return clinicaRepository
                 .findAll(pageable)
                 .map(c -> modelMapper.map(c, ClinicaDto.class));
     }
 
-    public ClinicaDto obterById (Long id) {
+    public ClinicaDto obterById(Long id) {
         Clinica clinica = clinicaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException());
 
@@ -48,7 +48,8 @@ public class ClinicaService {
         Optional<Clinica> clinica = clinicaRepository.findById(id);
         List<Profissional> temp = profissionalRepository
                 .findByClinica(clinica.get());
-        return modelMapper.map(temp, new TypeToken<List<ProfissionaisDto>>() {}.getType());
+        return modelMapper.map(temp, new TypeToken<List<ProfissionaisDto>>() {
+        }.getType());
     }
 
     public ClinicaDto criarClinica(ClinicaDto dto) {
