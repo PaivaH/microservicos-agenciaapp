@@ -10,4 +10,6 @@ import br.com.agenciaapp.cadastroclinica.model.Profissional;
 public interface AgendaRepository extends JpaRepository<Agenda, Long>{
     
     Page<Agenda> findByProfissional(Profissional profissional, Pageable pageable);
+
+    Page<Agenda> findByDisponivel(Boolean disponivel, Pageable pageable);
 }

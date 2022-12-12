@@ -1,5 +1,7 @@
 package br.com.agenciaapp.cadastroclinica.service;
 
+import java.util.Optional;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
@@ -26,7 +28,12 @@ public class AgendaService {
     @Autowired
     ModelMapper modelMapper;
 
-    public Page<AgendaDto> obter(Pageable pageable) {
+    public Page<AgendaDto> obter(Pageable pageable, Boolean disponivel) {
+        if(disponivel){
+            return agendaRepository
+            .findByDisponivel(disponivel, pageable)
+            .map(c -> modelMapper.map(c, AgendaDto.class));
+        }
         return agendaRepository
                 .findAll(pageable)
                 .map(c -> modelMapper.map(c, AgendaDto.class));
@@ -59,5 +66,12 @@ public class AgendaService {
 
     public void excluirAgenda(Long id) {
         agendaRepository.deleteById(id);
+    }
+
+    public AgendaDto consulta(Long id, Boolean marcar) {
+        Optional<Agenda> agenda = agendaRepository.findById(id);
+        agenda.get().setDisponivel(marcar);
+        Agenda dto = agendaRepository.save(agenda.get());
+        return modelMapper.map(dto, AgendaDto.class);
     }
 }

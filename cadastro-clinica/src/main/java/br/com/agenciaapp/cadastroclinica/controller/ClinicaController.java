@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.agenciaapp.cadastroclinica.dto.ClinicaDto;
 import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
+import br.com.agenciaapp.cadastroclinica.model.Clinica;
 import br.com.agenciaapp.cadastroclinica.service.ClinicaService;
 
 @RestController()
@@ -37,10 +38,10 @@ public class ClinicaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClinicaDto> detalhar(@PathVariable @NotNull Long id) {
-        ClinicaDto clinicaDto = clinicaService.obterById(id);
+    public ResponseEntity<Clinica> detalhar(@PathVariable @NotNull Long id) {
+        Clinica clinica = clinicaService.obterById(id);
 
-        return ResponseEntity.ok(clinicaDto);
+        return ResponseEntity.ok(clinica);
     }
 
     @GetMapping("/{id}/profissionais")
@@ -49,11 +50,11 @@ public class ClinicaController {
     }
 
     @PostMapping
-    public ResponseEntity<ClinicaDto> cadastrar(@RequestBody @Valid ClinicaDto dto, UriComponentsBuilder uriBuilder) {
-        ClinicaDto clinicaDto = clinicaService.criarClinica(dto);
-        URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(clinicaDto.getId()).toUri();
+    public ResponseEntity<Clinica> cadastrar(@RequestBody @Valid Clinica dto, UriComponentsBuilder uriBuilder) {
+        Clinica clinica = clinicaService.criarClinica(dto);
+        URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(clinica.getId()).toUri();
 
-        return ResponseEntity.created(endereco).body(clinicaDto);
+        return ResponseEntity.created(endereco).body(clinica);
     }
 
     @PutMapping("/{id}")

@@ -37,11 +37,9 @@ public class ClinicaService {
                 .map(c -> modelMapper.map(c, ClinicaDto.class));
     }
 
-    public ClinicaDto obterById(Long id) {
-        Clinica clinica = clinicaRepository.findById(id)
+    public Clinica obterById(Long id) {
+        return clinicaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException());
-
-        return modelMapper.map(clinica, ClinicaDto.class);
     }
 
     public List<ProfissionaisDto> obterProfissionais(Long id) {
@@ -52,11 +50,8 @@ public class ClinicaService {
         }.getType());
     }
 
-    public ClinicaDto criarClinica(ClinicaDto dto) {
-        Clinica clinica = modelMapper.map(dto, Clinica.class);
-        clinicaRepository.save(clinica);
-
-        return modelMapper.map(clinica, ClinicaDto.class);
+    public Clinica criarClinica(Clinica clinica) {
+        return clinicaRepository.save(clinica);
     }
 
     public ClinicaDto atualizarClinica(Long id, ClinicaDto dto) {

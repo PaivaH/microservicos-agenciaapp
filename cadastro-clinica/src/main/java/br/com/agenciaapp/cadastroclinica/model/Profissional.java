@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Profissional {
 
     @Id
@@ -36,7 +38,8 @@ public class Profissional {
     private String especialidades;
 
     @NotBlank
-    @Column(name = "")
+    @EqualsAndHashCode.Include
+    @Column(unique=true)
     private String conselhoProfissional;
 
     @NotNull

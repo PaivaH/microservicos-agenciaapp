@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenciaapp.cadastroclinica.dto.AgendaDto;
@@ -25,8 +27,8 @@ public class AgendaController {
     AgendaService agendaService;
 
     @GetMapping
-    public Page<AgendaDto> listar(Pageable pageable) {
-        return agendaService.obter(pageable);
+    public Page<AgendaDto> listar(Pageable pageable, @RequestParam(defaultValue = "true") Boolean disponivel) {
+        return agendaService.obter(pageable, disponivel);
     }
 
     @PostMapping("/{id}/profissional")
@@ -54,6 +56,18 @@ public class AgendaController {
     public ResponseEntity<AgendaDto> remover(@PathVariable @NotNull Long id) {
         agendaService.excluirAgenda(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/consulta")
+    public ResponseEntity<AgendaDto> marcarConsulta(@PathVariable @NotNull Long id) {
+        AgendaDto dto = agendaService.consulta(id, false);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}/consulta")
+    public ResponseEntity<AgendaDto> cancelarConsulta(@PathVariable @NotNull Long id) {
+        AgendaDto dto = agendaService.consulta(id, true);
+        return ResponseEntity.ok(dto);
     }
 
 }
