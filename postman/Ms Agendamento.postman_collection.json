@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "d96b0087-b282-4721-83f9-1af57b3d9ad9",
+		"name": "Ms Agendamento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16756574"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Paciente 1\",\r\n    \"email\": \"teste5@gmail.com\",\r\n    \"nascimento\": \"2001-12-05\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/paciente",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"paciente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PacienteById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/paciente/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"paciente",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"consulta\": 7,\r\n    \"paciente\": {\r\n        \"id\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/consulta",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"consulta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta por paciente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/consulta/:id/paciente",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"consulta",
+						":id",
+						"paciente"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8082/agendamento-ms",
+			"type": "string"
+		}
+	]
+}

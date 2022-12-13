@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "d35535e5-eb75-44b7-bcae-c337ef3a9a31",
+		"name": "Cadastro clinica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16756574"
+	},
+	"item": [
+		{
+			"name": "Clinicas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clinica",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ClinicaById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clinica/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clinicas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Clinica B\",\r\n    \"endereco\": \"Rua B\",\r\n    \"responsavel\": \"Senhor B\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clinica",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clinicas",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"nome teste\",\r\n    \"endereco\": \"Rua a\",\r\n    \"responsavel\": \"Seu Quincas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clinica/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clinicas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"nome teste\",\r\n    \"endereco\": \"Rua a\",\r\n    \"responsavel\": \"Seu Quincas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clinica/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profissional",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/profissional",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProfissionalById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/profissional/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProfissionaisByClinicaId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/clinica/:id/profissionais",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica",
+						":id",
+						"profissionais"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profissional",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var num1 = Math.floor(Math.random() * (999 - 100) + 100);\r",
+							"var num2 = Math.floor(Math.random() * (9999 - 1000) + 1000);\r",
+							"pm.environment.set(\"num1\", _.random(100, 999))\r",
+							"pm.environment.set(\"num2\", _.random(10000, 99999))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Ortopedista\",\r\n    \"especialidades\": \"Espc A\",\r\n    \"conselhoProfissional\": \"RJ {{num1}}/{{num2}}\",\r\n    \"clinica\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profissional",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profissional",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Orologista\",\r\n    \"especialidades\": \"Espc1\",\r\n    \"conselhoProfissional\": \"RJ 123/124412\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profissional/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profissional",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Orologista\",\r\n    \"especialidades\": \"Espc1\",\r\n    \"conselhoProfissional\": \"RJ 123/124412\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profissional/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"2023-04-11T12:30:00\",\r\n    \"disponivel\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/:id/profissional",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id",
+						"profissional"
+					],
+					"query": [
+						{
+							"key": "disponivel",
+							"value": "true",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda by profissional",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/:id/profissional",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id",
+						"profissional"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agendas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						""
+					],
+					"query": [
+						{
+							"key": "disponivel",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Orologista\",\r\n    \"especialidades\": \"Espc1\",\r\n    \"conselhoProfissional\": \"RJ 123/124412\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/agenda/:id/consulta",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id",
+						"consulta"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/agenda/:id/consulta",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id",
+						"consulta"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8082/clinica-ms",
+			"type": "string"
+		}
+	]
+}
