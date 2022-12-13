@@ -1,8 +1,11 @@
 package br.com.agenciaapp.agendamento.model;
 
-import java.time.LocalDateTime;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +19,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Consulta {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime diaHorario;
+
+    @Column(unique=true)
+    private Long consulta;
+
+    @ManyToOne
     private Paciente paciente;
 }

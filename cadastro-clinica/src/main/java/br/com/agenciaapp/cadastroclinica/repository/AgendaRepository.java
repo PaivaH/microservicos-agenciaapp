@@ -5,11 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.agenciaapp.cadastroclinica.model.Agenda;
-import br.com.agenciaapp.cadastroclinica.model.Profissional;
 
 public interface AgendaRepository extends JpaRepository<Agenda, Long>{
-    
-    Page<Agenda> findByProfissional(Profissional profissional, Pageable pageable);
+
+    Page<Agenda> findByProfissionalId(Long id, Pageable pageable);
 
     Page<Agenda> findByDisponivel(Boolean disponivel, Pageable pageable);
 }

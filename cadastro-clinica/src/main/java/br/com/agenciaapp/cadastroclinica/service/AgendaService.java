@@ -49,9 +49,8 @@ public class AgendaService {
     }
 
     public Page<AgendaDto> agendaProssional(Long id, Pageable pageable) {
-        Profissional profissional = profissionalService.findById(id).get();
         Page<Agenda> temp = agendaRepository
-                .findByProfissional(profissional, pageable);
+                .findByProfissionalId(id, pageable);
         return modelMapper.map(temp, new TypeToken<Page<AgendaDto>>() {
         }.getType());
     }

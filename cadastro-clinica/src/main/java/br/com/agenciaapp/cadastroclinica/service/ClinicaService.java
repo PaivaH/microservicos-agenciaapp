@@ -1,7 +1,6 @@
 package br.com.agenciaapp.cadastroclinica.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -43,9 +42,8 @@ public class ClinicaService {
     }
 
     public List<ProfissionaisDto> obterProfissionais(Long id) {
-        Optional<Clinica> clinica = clinicaRepository.findById(id);
         List<Profissional> temp = profissionalRepository
-                .findByClinica(clinica.get());
+                .findByClinicaId(id);
         return modelMapper.map(temp, new TypeToken<List<ProfissionaisDto>>() {
         }.getType());
     }
