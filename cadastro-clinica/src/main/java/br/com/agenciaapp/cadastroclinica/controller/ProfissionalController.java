@@ -16,22 +16,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
 import br.com.agenciaapp.cadastroclinica.dto.ProfissionalDto;
 import br.com.agenciaapp.cadastroclinica.service.ProfissionalService;
 
 @RestController
 @RequestMapping("profissional")
 public class ProfissionalController {
-    
+
     @Autowired
     private ProfissionalService profissionalService;
 
     @GetMapping
-    public Page<ProfissionalDto> listar (Pageable pageable) {
-        return profissionalService.obter(pageable);
+    public Page<ProfissionaisDto> listar(Pageable pageable,
+            @RequestParam(name = "clinica", required = false, defaultValue = "0") Long id) {
+        return profissionalService.obter(pageable, id);
     }
 
     @GetMapping("/{id}")
@@ -42,7 +45,8 @@ public class ProfissionalController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfissionalDto> cadastrar(@RequestBody @Valid ProfissionalDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProfissionalDto> cadastrar(@RequestBody @Valid ProfissionalDto dto,
+            UriComponentsBuilder uriBuilder) {
         ProfissionalDto ProfissionalDto = profissionalService.criarProfissional(dto);
         URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(ProfissionalDto.getId()).toUri();
 
@@ -50,7 +54,8 @@ public class ProfissionalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfissionalDto> atualizar(@PathVariable @NotNull Long id, @RequestBody @Valid ProfissionalDto dto) {
+    public ResponseEntity<ProfissionalDto> atualizar(@PathVariable @NotNull Long id,
+            @RequestBody @Valid ProfissionalDto dto) {
         ProfissionalDto atualizado = profissionalService.atualizarProfissional(id, dto);
         return ResponseEntity.ok(atualizado);
     }

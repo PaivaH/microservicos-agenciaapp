@@ -1,12 +1,12 @@
 package br.com.agenciaapp.cadastroclinica.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.agenciaapp.cadastroclinica.model.Profissional;
 
 public interface ProfissionalRepository extends JpaRepository<Profissional, Long>{
 
-    List<Profissional> findByClinicaId(Long id);
+    Page<Profissional> findByClinicaId(Pageable page,Long id);
 }

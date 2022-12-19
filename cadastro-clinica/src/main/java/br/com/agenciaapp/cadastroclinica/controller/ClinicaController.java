@@ -1,14 +1,16 @@
 package br.com.agenciaapp.cadastroclinica.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.agenciaapp.cadastroclinica.dto.ClinicaDto;
-import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
 import br.com.agenciaapp.cadastroclinica.model.Clinica;
 import br.com.agenciaapp.cadastroclinica.service.ClinicaService;
 
@@ -32,6 +34,8 @@ public class ClinicaController {
     @Autowired
     private ClinicaService clinicaService;
 
+    private Logger logger = LoggerFactory.getLogger(ClinicaController.class);
+
     @GetMapping
     public Page<ClinicaDto> listar (Pageable pageable) {
         return clinicaService.obter(pageable);
@@ -39,14 +43,14 @@ public class ClinicaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Clinica> detalhar(@PathVariable @NotNull Long id) {
-        Clinica clinica = clinicaService.obterById(id);
 
-        return ResponseEntity.ok(clinica);
-    }
-
-    @GetMapping("/{id}/profissionais")
-    public List<ProfissionaisDto> profissionaisClinica(@PathVariable @NotNull Long id) {
-        return clinicaService.obterProfissionais(id);
+        try{
+            Clinica clinica = clinicaService.obterById(id);
+            return ResponseEntity.ok(clinica);
+        } catch (Exception e) {
+            logger.error("Não encontrado" ,e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
+        }
     }
 
     @PostMapping
@@ -58,7 +62,7 @@ public class ClinicaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClinicaDto> atualizar(@PathVariable @NotNull Long id, @RequestBody @Valid ClinicaDto dto) {
+    public ResponseEntity<ClinicaDto> atualizar(@PathVariable @NotNull Long id, @RequestBody ClinicaDto dto) {
         ClinicaDto atualizado = clinicaService.atualizarClinica(id, dto);
         return ResponseEntity.ok(atualizado);
     }

@@ -3,6 +3,7 @@ package br.com.agenciaapp.cadastroclinica.service;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.agenciaapp.cadastroclinica.dto.AgendaDto;
+import br.com.agenciaapp.cadastroclinica.http.AgendamentoClient;
 import br.com.agenciaapp.cadastroclinica.model.Agenda;
 import br.com.agenciaapp.cadastroclinica.model.Profissional;
 import br.com.agenciaapp.cadastroclinica.repository.AgendaRepository;
@@ -27,6 +29,9 @@ public class AgendaService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    AgendamentoClient agedamento;
 
     public Page<AgendaDto> obter(Pageable pageable, Boolean disponivel) {
         if(disponivel){
@@ -63,8 +68,14 @@ public class AgendaService {
         return modelMapper.map(agenda, AgendaDto.class);
     }
 
+    @Transactional
     public void excluirAgenda(Long id) {
-        agendaRepository.deleteById(id);
+        try {
+            agedamento.cancelarConsulta(id);
+            agendaRepository.deleteById(id);
+        } catch (Exception exception) {
+            exception.getMessage();
+        }
     }
 
     public AgendaDto consulta(Long id, Boolean marcar) {

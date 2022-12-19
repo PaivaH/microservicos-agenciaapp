@@ -14,5 +14,5 @@ public class AgendaDto {
 
     private Boolean disponivel;
 
-    private ProfissionalDto profissional;
+    private ProfissionaisDto profissional;
 }

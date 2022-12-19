@@ -9,4 +9,5 @@ public class ClinicaDto {
     private Long id;
     private String nome;
     private String endereco;
+    private String responsavel;
 }

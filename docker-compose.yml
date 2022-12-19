@@ -17,6 +17,14 @@ services:
 
     volumes:
       - poslive:/var/lib/mysql
+  
+  zipkin:
+    image: openzipkin/zipkin
+
+    container_name: zipkin
+
+    ports:
+      - 9411:9411
 
 volumes:
   poslive:

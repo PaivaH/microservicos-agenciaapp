@@ -25,7 +25,7 @@ FOREIGN KEY(clinica_id) REFERENCES clinica(id);
 CREATE TABLE agenda (
     id bigint(20) NOT NULL AUTO_INCREMENT,
     profissional_id bigint(20) NOT NULL,
-    dia_hora datetime NOT NULl,
+    dia_hora datetime NOT NULl UNIQUE,
     disponivel boolean default 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_profissional 

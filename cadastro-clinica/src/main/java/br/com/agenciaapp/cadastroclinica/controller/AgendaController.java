@@ -58,13 +58,13 @@ public class AgendaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/consulta")
+    @PutMapping("/{id}/marcar")
     public ResponseEntity<AgendaDto> marcarConsulta(@PathVariable @NotNull Long id) {
         AgendaDto dto = agendaService.consulta(id, false);
         return ResponseEntity.ok(dto);
     }
 
-    @DeleteMapping("/{id}/consulta")
+    @DeleteMapping("/{id}/cancelar")
     public ResponseEntity<AgendaDto> cancelarConsulta(@PathVariable @NotNull Long id) {
         AgendaDto dto = agendaService.consulta(id, true);
         return ResponseEntity.ok(dto);
