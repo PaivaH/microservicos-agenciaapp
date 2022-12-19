@@ -3,6 +3,8 @@ package br.com.agenciaapp.agendamento.controller;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ public class PacienteController {
     @Autowired
     PacienteService pacienteService;
 
+    private Logger logger = LoggerFactory.getLogger(PacienteController.class);
+
     @PostMapping()
     public ResponseEntity<Paciente> cadastrar(@RequestBody @Valid Paciente paciente) {
         Paciente dto = pacienteService.criar(paciente);
@@ -42,6 +46,7 @@ public class PacienteController {
 
     @GetMapping()
     public Page<Paciente> obter(Pageable pageable) {
+        logger.info("obter Pacientes");
         return pacienteService.obterPacientes(pageable);
     }
 

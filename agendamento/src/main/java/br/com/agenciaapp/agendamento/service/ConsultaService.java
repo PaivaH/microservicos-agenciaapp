@@ -25,8 +25,8 @@ public class ConsultaService {
     }
 
     public void deletar(Long id) {
-        agenda.cancelarConsulta(0);
-        consultaRepository.deleteById(id);
+        agenda.cancelarConsulta(id);
+        consultaRepository.deleteByConsulta(id);
     }
 
     public Optional<Consulta> obterById(Long id) {

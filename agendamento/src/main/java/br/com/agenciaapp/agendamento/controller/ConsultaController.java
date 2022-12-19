@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenciaapp.agendamento.model.Consulta;
 import br.com.agenciaapp.agendamento.service.ConsultaService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
 @RequestMapping("/consulta")
@@ -25,6 +26,7 @@ public class ConsultaController {
     ConsultaService consultaService;
 
     @PostMapping()
+    @CircuitBreaker(name = "marcarConsulta")
     public ResponseEntity<Consulta> cadastrar(@RequestBody @Valid Consulta Consulta) {
         Consulta dto = consultaService.criar(Consulta);
 
@@ -32,6 +34,7 @@ public class ConsultaController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @CircuitBreaker(name = "cancelarConsulta")
     public ResponseEntity<Consulta> deletar(@PathVariable @NotNull Long id) {
         consultaService.deletar(id);
 
