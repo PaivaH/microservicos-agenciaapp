@@ -35,7 +35,7 @@ public class ConsultaController {
 
     @DeleteMapping(value = "/{id}")
     @CircuitBreaker(name = "cancelarConsulta")
-    public ResponseEntity<Consulta> deletar(@PathVariable @NotNull Long id) {
+    public ResponseEntity<Consulta> deletar(@PathVariable Long id) {
         consultaService.deletar(id);
 
         return ResponseEntity.noContent().build();

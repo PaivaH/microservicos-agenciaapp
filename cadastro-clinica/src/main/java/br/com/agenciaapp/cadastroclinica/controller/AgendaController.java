@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenciaapp.cadastroclinica.dto.AgendaDto;
 import br.com.agenciaapp.cadastroclinica.service.AgendaService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
 @RequestMapping("/agenda")
@@ -53,6 +54,7 @@ public class AgendaController {
     }
 
     @DeleteMapping("/{id}")
+    @CircuitBreaker(name = "cancelarConsulta")
     public ResponseEntity<AgendaDto> remover(@PathVariable @NotNull Long id) {
         agendaService.excluirAgenda(id);
         return ResponseEntity.noContent().build();
@@ -64,10 +66,10 @@ public class AgendaController {
         return ResponseEntity.ok(dto);
     }
 
-    @DeleteMapping("/{id}/cancelar")
+    @PutMapping("/{id}/cancelar")
     public ResponseEntity<AgendaDto> cancelarConsulta(@PathVariable @NotNull Long id) {
-        AgendaDto dto = agendaService.consulta(id, true);
-        return ResponseEntity.ok(dto);
+        agendaService.consulta(id, true);
+        return ResponseEntity.noContent().build();
     }
 
 }

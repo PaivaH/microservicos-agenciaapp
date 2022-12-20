@@ -31,7 +31,7 @@ public class AgendaService {
     ModelMapper modelMapper;
 
     @Autowired
-    AgendamentoClient agedamento;
+    AgendamentoClient agendamentoClient;
 
     public Page<AgendaDto> obter(Pageable pageable, Boolean disponivel) {
         if(disponivel){
@@ -70,8 +70,8 @@ public class AgendaService {
 
     @Transactional
     public void excluirAgenda(Long id) {
+        agendamentoClient.cancelarConsulta(id);
         try {
-            agedamento.cancelarConsulta(id);
             agendaRepository.deleteById(id);
         } catch (Exception exception) {
             exception.getMessage();

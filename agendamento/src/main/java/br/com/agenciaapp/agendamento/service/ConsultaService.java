@@ -20,13 +20,15 @@ public class ConsultaService {
     private AgendaClient agenda;
 
     public Consulta criar(Consulta consulta) {
-        agenda.marcarConsulta(consulta.getConsulta());
+        agenda.marcarConsulta(consulta.getConsultaId());
         return consultaRepository.save(consulta);
     }
 
     public void deletar(Long id) {
+        Optional<Consulta> consulta = consultaRepository.findByConsultaId(id);
         agenda.cancelarConsulta(id);
-        consultaRepository.deleteByConsulta(id);
+        consultaRepository.delete(consulta.get());
+        System.out.println("FOi");
     }
 
     public Optional<Consulta> obterById(Long id) {

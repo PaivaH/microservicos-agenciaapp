@@ -11,6 +11,6 @@ public interface AgendaClient {
     @RequestMapping(method = RequestMethod.PUT, value = "/agenda/{id}/marcar")
     void marcarConsulta(@PathVariable long id);
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/agenda/{id}/cancelar")
+    @RequestMapping(method = RequestMethod.PUT, value = "/agenda/{id}/cancelar")
     void cancelarConsulta(@PathVariable long id);
 }
