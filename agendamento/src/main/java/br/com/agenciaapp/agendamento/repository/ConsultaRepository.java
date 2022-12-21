@@ -11,7 +11,7 @@ import br.com.agenciaapp.agendamento.model.Paciente;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
 
-    Optional<Consulta> findByConsultaId(Long consultaId);
+    Optional<Consulta> findByAgendaId(Long agendaId);
 
     Page<Consulta> findByPaciente(Paciente paciente, Pageable pageable);
 

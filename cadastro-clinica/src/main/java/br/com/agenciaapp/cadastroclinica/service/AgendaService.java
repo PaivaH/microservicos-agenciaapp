@@ -34,10 +34,10 @@ public class AgendaService {
     AgendamentoClient agendamentoClient;
 
     public Page<AgendaDto> obter(Pageable pageable, Boolean disponivel) {
-        if(disponivel){
+        if (disponivel) {
             return agendaRepository
-            .findByDisponivel(disponivel, pageable)
-            .map(c -> modelMapper.map(c, AgendaDto.class));
+                    .findByDisponivel(disponivel, pageable)
+                    .map(c -> modelMapper.map(c, AgendaDto.class));
         }
         return agendaRepository
                 .findAll(pageable)
@@ -70,12 +70,17 @@ public class AgendaService {
 
     @Transactional
     public void excluirAgenda(Long id) {
-        agendamentoClient.cancelarConsulta(id);
-        try {
-            agendaRepository.deleteById(id);
-        } catch (Exception exception) {
-            exception.getMessage();
+        Boolean agenda = agendamentoClient.checkarAgendamento(id);
+        System.out.println(agenda);
+        if (agenda == true) {
+            try {
+                agendamentoClient.cancelarConsulta(id);
+            } catch (Exception exception) {
+                exception.getMessage();
+            }
         }
+        agendaRepository.deleteById(id);
+
     }
 
     public AgendaDto consulta(Long id, Boolean marcar) {

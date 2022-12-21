@@ -54,7 +54,7 @@ public class AgendaController {
     }
 
     @DeleteMapping("/{id}")
-    @CircuitBreaker(name = "cancelarConsulta")
+    @CircuitBreaker(name = "agenda", fallbackMethod = "")
     public ResponseEntity<AgendaDto> remover(@PathVariable @NotNull Long id) {
         agendaService.excluirAgenda(id);
         return ResponseEntity.noContent().build();

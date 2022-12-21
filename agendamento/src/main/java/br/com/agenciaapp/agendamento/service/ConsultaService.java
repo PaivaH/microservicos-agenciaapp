@@ -20,12 +20,12 @@ public class ConsultaService {
     private AgendaClient agenda;
 
     public Consulta criar(Consulta consulta) {
-        agenda.marcarConsulta(consulta.getConsultaId());
+        agenda.marcarConsulta(consulta.getAgendaId());
         return consultaRepository.save(consulta);
     }
 
     public void deletar(Long id) {
-        Optional<Consulta> consulta = consultaRepository.findByConsultaId(id);
+        Optional<Consulta> consulta = consultaRepository.findByAgendaId(id);
         agenda.cancelarConsulta(id);
         consultaRepository.delete(consulta.get());
         System.out.println("FOi");
@@ -42,5 +42,9 @@ public class ConsultaService {
     public Page<Consulta> obter(Pageable pageable) {
         return consultaRepository.findAll(pageable);
 
+    }
+
+    public Optional<Consulta> agendaExiste(Long id) {
+        return consultaRepository.findByAgendaId(id);
     }
 }

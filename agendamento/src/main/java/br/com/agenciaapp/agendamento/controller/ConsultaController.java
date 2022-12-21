@@ -1,7 +1,8 @@
 package br.com.agenciaapp.agendamento.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,8 +26,15 @@ public class ConsultaController {
     @Autowired
     ConsultaService consultaService;
 
+    @GetMapping("/{id}/agendada")
+    public ResponseEntity<Boolean> consultaAgendada(@PathVariable Long id) {
+        Optional<Consulta> consulta = consultaService.agendaExiste(id);
+
+        return ResponseEntity.ok(consulta.isPresent());
+    }
+
     @PostMapping()
-    @CircuitBreaker(name = "marcarConsulta")
+    @CircuitBreaker(name = "consulta", fallbackMethod = "")
     public ResponseEntity<Consulta> cadastrar(@RequestBody @Valid Consulta Consulta) {
         Consulta dto = consultaService.criar(Consulta);
 
@@ -34,7 +42,7 @@ public class ConsultaController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @CircuitBreaker(name = "cancelarConsulta")
+    @CircuitBreaker(name = "consulta", fallbackMethod = "")
     public ResponseEntity<Consulta> deletar(@PathVariable Long id) {
         consultaService.deletar(id);
 

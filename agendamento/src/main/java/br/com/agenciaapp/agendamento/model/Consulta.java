@@ -24,7 +24,7 @@ public class Consulta {
     private Long id;
 
     @Column(unique=true)
-    private Long consultaId;
+    private Long agendaId;
 
     @ManyToOne
     private Paciente paciente;
