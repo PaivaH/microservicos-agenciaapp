@@ -9,6 +9,32 @@
 		{
 			"name": "Clinicas",
 			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Clinica B\",\r\n    \"endereco\": \"Rua B\",\r\n    \"responsavel\": \"Senhor B\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/clinica",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"clinica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clinicas",
+			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -40,34 +66,8 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "2"
+							"value": "1"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Clinicas",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Clinica B\",\r\n    \"endereco\": \"Rua B\",\r\n    \"responsavel\": \"Senhor B\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/clinica",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"clinica"
 					]
 				}
 			},
@@ -80,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"nome teste\",\r\n    \"endereco\": \"Rua a\",\r\n    \"responsavel\": \"Seu Quincas\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"Clinica Bc\",\r\n    \"endereco\": \"Rua B\",\r\n    \"responsavel\": \"Senhor B\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +99,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "5"
+							"value": "1"
 						}
 					]
 				}
@@ -132,73 +132,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "5"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Profissional",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/profissional",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"profissional"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ProfissionalById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/profissional/:id",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"profissional",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "3"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ProfissionaisByClinicaId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/clinica/:id/profissionais",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"clinica",
-						":id",
-						"profissionais"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -226,7 +160,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Ortopedista\",\r\n    \"especialidades\": \"Espc A\",\r\n    \"conselhoProfissional\": \"RJ {{num1}}/{{num2}}\",\r\n    \"clinica\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Ortopedista\",\r\n    \"especialidades\": \"Espc A\",\r\n    \"conselhoProfissional\": \"RJ {{num1}}/{{num2}}\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -248,11 +182,58 @@
 		{
 			"name": "Profissional",
 			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/profissional?clinica=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional"
+					],
+					"query": [
+						{
+							"key": "clinica",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProfissionalById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/profissional/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profissional",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Profissional",
+			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Medico 1\",\r\n    \"profissao\": \"Orologista\",\r\n    \"especialidades\": \"Espc1\",\r\n    \"conselhoProfissional\": \"RJ 123/124412\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"raw": "{\r\n    \"nome\": \"Medico CC\",\r\n    \"profissao\": \"Orologista\",\r\n    \"especialidades\": \"Espc1\",\r\n    \"conselhoProfissional\": \"RJ 123/124412\",\r\n    \"clinica\": {\r\n        \"id\": 1\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -304,7 +285,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": null
+							"value": "2"
 						}
 					]
 				}
@@ -341,6 +322,78 @@
 							"value": "true",
 							"disabled": true
 						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agendas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/?disponivel=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						""
+					],
+					"query": [
+						{
+							"key": "disponivel",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agenda by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/agenda/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"agenda",
+						":id"
 					],
 					"variable": [
 						{
@@ -390,79 +443,6 @@
 			"response": []
 		},
 		{
-			"name": "Agenda by ID",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/agenda/:id",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"agenda",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Agendas",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"diaHora\": \"25/01/2023 11:00:00\",\r\n    \"profissional\": {\r\n        \"id\": 1\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/agenda/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"agenda",
-						""
-					],
-					"query": [
-						{
-							"key": "disponivel",
-							"value": "false",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Agenda",
 			"request": {
 				"method": "DELETE",
@@ -488,7 +468,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": null
+							"value": "1"
 						}
 					]
 				}
@@ -496,19 +476,19 @@
 			"response": []
 		},
 		{
-			"name": "Consulta",
+			"name": "Marcar consulta",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/agenda/:id/consulta",
+					"raw": "{{url}}/agenda/:id/marcar",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"agenda",
 						":id",
-						"consulta"
+						"marcar"
 					],
 					"variable": [
 						{
@@ -521,25 +501,43 @@
 			"response": []
 		},
 		{
-			"name": "Consulta",
+			"name": "Cancelar Agenda",
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/agenda/:id/consulta",
+					"raw": "{{url}}/agenda/:id/cancelar",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"agenda",
 						":id",
-						"consulta"
+						"cancelar"
 					],
 					"variable": [
 						{
 							"key": "id",
 							"value": "1"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Docs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v3/api-docs",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"api-docs"
 					]
 				}
 			},

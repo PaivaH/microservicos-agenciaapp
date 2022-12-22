@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +26,15 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 @RequestMapping("/consulta")
 public class ConsultaController {
     @Autowired
-    ConsultaService consultaService;
+    private ConsultaService consultaService;
+
+    private Logger logger = LoggerFactory.getLogger(ConsultaController.class);
 
     @GetMapping("/{id}/agendada")
     public ResponseEntity<Boolean> consultaAgendada(@PathVariable Long id) {
+        logger.info("consultaAgendada ConsultaController");
+
+
         Optional<Consulta> consulta = consultaService.agendaExiste(id);
 
         return ResponseEntity.ok(consulta.isPresent());
@@ -36,6 +43,8 @@ public class ConsultaController {
     @PostMapping()
     @CircuitBreaker(name = "consulta", fallbackMethod = "")
     public ResponseEntity<Consulta> cadastrar(@RequestBody @Valid Consulta Consulta) {
+        logger.info("cadastrar ConsultaController");
+
         Consulta dto = consultaService.criar(Consulta);
 
         return ResponseEntity.ok(dto);
@@ -44,6 +53,8 @@ public class ConsultaController {
     @DeleteMapping(value = "/{id}")
     @CircuitBreaker(name = "consulta", fallbackMethod = "")
     public ResponseEntity<Consulta> deletar(@PathVariable Long id) {
+        logger.info("deletar ConsultaController");
+
         consultaService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -51,6 +62,8 @@ public class ConsultaController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Consulta> obterById(@PathVariable Long id) {
+        logger.info("obterById ConsultaController");
+
         Consulta dto = consultaService.obterById(id).get();
 
         return ResponseEntity.ok(dto);
@@ -58,11 +71,15 @@ public class ConsultaController {
 
     @GetMapping(value = "/{id}/paciente")
     public Page<Consulta> obterByPaciente(@PathVariable Long id, Pageable pageable) {
+        logger.info("obterByPaciente ConsultaController");
+
         return consultaService.obterByPaciente(id, pageable);
     }
 
     @GetMapping()
     public Page<Consulta> obter(Pageable pageable) {
+        logger.info("obter ConsultaController");
+
         return consultaService.obter(pageable);
     }
 

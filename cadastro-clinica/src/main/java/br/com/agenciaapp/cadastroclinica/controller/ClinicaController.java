@@ -38,11 +38,13 @@ public class ClinicaController {
 
     @GetMapping
     public Page<ClinicaDto> listar (Pageable pageable) {
+        logger.info("listar ClinicaController");
         return clinicaService.obter(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Clinica> detalhar(@PathVariable @NotNull Long id) {
+        logger.info("detalhar ClinicaController");
 
         try{
             Clinica clinica = clinicaService.obterById(id);
@@ -55,6 +57,7 @@ public class ClinicaController {
 
     @PostMapping
     public ResponseEntity<Clinica> cadastrar(@RequestBody @Valid Clinica dto, UriComponentsBuilder uriBuilder) {
+        logger.info("cadastrar ClinicaController");
         Clinica clinica = clinicaService.criarClinica(dto);
         URI endereco = uriBuilder.path("/pagamentos/{id}").buildAndExpand(clinica.getId()).toUri();
 
@@ -63,12 +66,14 @@ public class ClinicaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ClinicaDto> atualizar(@PathVariable @NotNull Long id, @RequestBody ClinicaDto dto) {
+        logger.info("atualizar ClinicaController");
         ClinicaDto atualizado = clinicaService.atualizarClinica(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ClinicaDto> remover(@PathVariable @NotNull Long id) {
+        logger.info("remover ClinicaController");
         clinicaService.excluirClinica(id);
         return ResponseEntity.noContent().build();
     }
