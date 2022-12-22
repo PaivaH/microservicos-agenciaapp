@@ -1,7 +1,8 @@
 # Projeto de microserviços em Java com Spring Cloud
 ## Projeto final da disciplina - Arquitetura de Microsserviços Java - Instituto Infnet
 
-Para rodar aplicação, deve primeiramente iniciar o container, e em seguindo iniciar as aplicações na seguinte ordem
+Para rodar aplicação, deve primeiramente iniciar o container utilizando docker-compose up -d,  
+e em seguindo iniciar as aplicações na seguinte ordem
 
 * server - Eureka Server
 * gateway - Spring Gateway
@@ -11,5 +12,5 @@ Para rodar aplicação, deve primeiramente iniciar o container, e em seguindo in
 O projeto possui um diretório com as coletctions do Postman e Swagger UI
 Para ver a documentação basta acessar:
 
-agendamento - [localhost:9090/swagger-ui/index.html](localhost:9090/swagger-ui/index.html)  
-cadastro-clinica - [localhost:9095/swagger-ui/index.html](localhost:9095/swagger-ui/index.html)  
+agendamento - [localhost:9090/swagger-ui/index.html](http://localhost:9090/swagger-ui/index.html)  
+cadastro-clinica - [localhost:9095/swagger-ui/index.html](http://localhost:9095/swagger-ui/index.html)  
