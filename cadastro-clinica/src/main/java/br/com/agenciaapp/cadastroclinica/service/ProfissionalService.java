@@ -1,6 +1,6 @@
 package br.com.agenciaapp.cadastroclinica.service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
