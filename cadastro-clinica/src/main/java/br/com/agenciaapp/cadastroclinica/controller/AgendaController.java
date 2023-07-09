@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.agenciaapp.cadastroclinica.dto.AgendaDto;
 import br.com.agenciaapp.cadastroclinica.service.AgendaService;
@@ -48,17 +50,31 @@ public class AgendaController {
     }
 
     @GetMapping("/{id}/profissional")
-    public Page<AgendaDto> agendaProfissional(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<Page<AgendaDto>> agendaProfissional(@PathVariable Long id, Pageable pageable) {
         logger.info("agendaProfissional AgendaController");
-        return agendaService.agendaProssional(id, pageable);
+        try {
+            Page<AgendaDto> agendaDto = agendaService.agendaProssional(id, pageable);
+            
+            return ResponseEntity.ok(agendaDto);
+        } catch (Exception e) {
+            logger.error("Não encontrado", e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
+        }
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AgendaDto> obterAgendaId(@PathVariable(name = "id") Long id) {
         logger.info("obterAgendaId AgendaController");
-        AgendaDto agendaDto = agendaService.obterById(id);
 
-        return ResponseEntity.ok(agendaDto);
+        try {
+            AgendaDto agendaDto = agendaService.obterById(id);
+
+            return ResponseEntity.ok(agendaDto);
+        } catch (Exception e) {
+            logger.error("Não encontrado", e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -70,17 +86,25 @@ public class AgendaController {
     }
 
     @PutMapping("/{id}/marcar")
-    public ResponseEntity<AgendaDto> marcarConsulta(@PathVariable @NotNull Long id) {
+    public ResponseEntity<Void> marcarConsulta(@PathVariable @NotNull Long id) {
         logger.info("marcarConsulta AgendaController");
-        AgendaDto dto = agendaService.consulta(id, false);
-        return ResponseEntity.ok(dto);
+        try {
+            agendaService.consulta(id, false);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()); 
+        }
     }
 
     @PutMapping("/{id}/cancelar")
-    public ResponseEntity<AgendaDto> cancelarConsulta(@PathVariable @NotNull Long id) {
+    public ResponseEntity<Void> cancelarConsulta(@PathVariable @NotNull Long id) {
         logger.info("cancelarConsulta AgendaController");
-        agendaService.consulta(id, true);
-        return ResponseEntity.noContent().build();
+        try {
+            agendaService.consulta(id, true);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()); 
+        }
     }
 
 }

@@ -6,7 +6,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,10 +53,11 @@ public class AgendaService {
     }
 
     public Page<AgendaDto> agendaProssional(Long id, Pageable pageable) {
-        Page<Agenda> temp = agendaRepository
-                .findByProfissionalId(id, pageable);
-        return modelMapper.map(temp, new TypeToken<Page<AgendaDto>>() {
-        }.getType());
+
+        return agendaRepository
+                .findByProfissionalId(id, pageable)
+                .map(c -> modelMapper.map(c, AgendaDto.class));
+
     }
 
     public AgendaDto obterById(Long id) {
@@ -83,8 +83,15 @@ public class AgendaService {
 
     }
 
-    public AgendaDto consulta(Long id, Boolean marcar) {
+    public AgendaDto consulta(Long id, Boolean marcar) throws Exception {
         Optional<Agenda> agenda = agendaRepository.findById(id);
+        if(!marcar && !agenda.get().getDisponivel()) {
+            throw new Exception("Consulta não disponivel");
+        }
+
+        if(marcar && agenda.get().getDisponivel()) {
+            throw new Exception("Não foi possivel fazer a operação");
+        }
         agenda.get().setDisponivel(marcar);
         Agenda dto = agendaRepository.save(agenda.get());
         return modelMapper.map(dto, AgendaDto.class);

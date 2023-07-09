@@ -11,5 +11,5 @@ public class ProfissionalDto {
     private String profissao;
     private String especialidades;
     private String conselhoProfissional;
-    private ClinicaDto clinica;
+    private Long clinicaId;
 }

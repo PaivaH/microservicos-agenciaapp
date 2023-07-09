@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.agenciaapp.cadastroclinica.dto.ProfissionaisDto;
 import br.com.agenciaapp.cadastroclinica.dto.ProfissionalDto;
 import br.com.agenciaapp.cadastroclinica.service.ProfissionalService;
 
@@ -36,7 +35,7 @@ public class ProfissionalController {
     private Logger logger = LoggerFactory.getLogger(ProfissionalController.class);
 
     @GetMapping
-    public Page<ProfissionaisDto> listar(Pageable pageable,
+    public Page<ProfissionalDto> listar(Pageable pageable,
             @RequestParam(name = "clinica", required = false, defaultValue = "0") Long id) {
 
         logger.info("listar ProfissionalController");

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.agenciaapp.agendamento.model.Consulta;
 import br.com.agenciaapp.agendamento.service.ConsultaService;
@@ -45,9 +47,14 @@ public class ConsultaController {
     public ResponseEntity<Consulta> cadastrar(@RequestBody @Valid Consulta Consulta) {
         logger.info("cadastrar ConsultaController");
 
-        Consulta dto = consultaService.criar(Consulta);
+        Consulta dto;
+        try {
+            dto = consultaService.criar(Consulta);
+            return ResponseEntity.ok(dto);
 
-        return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
     @DeleteMapping(value = "/{id}")
@@ -55,7 +62,11 @@ public class ConsultaController {
     public ResponseEntity<Consulta> deletar(@PathVariable Long id) {
         logger.info("deletar ConsultaController");
 
-        consultaService.deletar(id);
+        try {
+            consultaService.deletar(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
         return ResponseEntity.noContent().build();
     }
