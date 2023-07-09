@@ -42,7 +42,7 @@ public class AgendaController {
     @PostMapping("/{id}/profissional")
     public ResponseEntity<AgendaDto> cadastrar(
             @RequestBody @Valid AgendaDto dto,
-            @PathVariable(name = "id") Long id) {
+            @PathVariable Long id) {
         logger.info("cadastrar AgendaController");
         AgendaDto agendaDto = agendaService.criarAgenda(dto, id);
 
@@ -64,7 +64,7 @@ public class AgendaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgendaDto> obterAgendaId(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<AgendaDto> obterAgendaId(@PathVariable Long id) {
         logger.info("obterAgendaId AgendaController");
 
         try {

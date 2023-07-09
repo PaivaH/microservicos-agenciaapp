@@ -2,19 +2,19 @@ package br.com.agenciaapp.agendamento.http;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @FeignClient("clinica-ms")
 public interface AgendaClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/agenda/{id}")
+    @GetMapping("/agenda/{id}")
     ResponseEntity detalhesConsulta(@PathVariable long id);
     
-    @RequestMapping(method = RequestMethod.PUT, value = "/agenda/{id}/marcar")
+    @PutMapping("/agenda/{id}/marcar")
     ResponseEntity marcarConsulta(@PathVariable long id);
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/agenda/{id}/cancelar")
+    @PutMapping("/agenda/{id}/cancelar")
     ResponseEntity cancelarConsulta(@PathVariable long id);
 }
