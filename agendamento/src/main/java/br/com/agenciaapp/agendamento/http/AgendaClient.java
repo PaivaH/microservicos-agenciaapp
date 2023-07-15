@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public interface AgendaClient {
 
     @GetMapping("/agenda/{id}")
-    ResponseEntity detalhesConsulta(@PathVariable long id);
+    ResponseEntity<String> detalhesConsulta(@PathVariable long id);
     
     @PutMapping("/agenda/{id}/marcar")
     ResponseEntity marcarConsulta(@PathVariable long id);

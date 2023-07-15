@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.agenciaapp.agendamento.Dto.ConsultaDto;
 import br.com.agenciaapp.agendamento.model.Consulta;
 import br.com.agenciaapp.agendamento.service.ConsultaService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -72,10 +73,10 @@ public class ConsultaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Consulta> obterById(@PathVariable Long id) {
+    public ResponseEntity<ConsultaDto> obterById(@PathVariable Long id) {
         logger.info("obterById ConsultaController");
 
-        Consulta dto = consultaService.obterById(id).get();
+        ConsultaDto dto = consultaService.obterById(id);
 
         return ResponseEntity.ok(dto);
     }

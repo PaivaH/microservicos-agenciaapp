@@ -16,4 +16,6 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
     Page<Consulta> findByPaciente(Paciente paciente, Pageable pageable);
 
     Page<Consulta> findByPacienteId(Long paciente, Pageable pageable);
+
+    void deleteByAgendaId(Long agendaId);
 }
